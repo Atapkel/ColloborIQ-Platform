@@ -1,0 +1,36 @@
+.container {
+   max-width: 500px;
+   margin: 100px auto;
+   padding: 20px;
+   text-align: center;
+   background-color: white;
+   border-radius: 8px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+   font-size: 24px;
+   color: #003366;
+}
+
+p {
+   font-size: 16px;
+   color: #333;
+}
+
+.btn {
+   background-color: #003366;
+   color: white;
+   padding: 10px 20px;
+   border: none;
+   border-radius: 4px;
+   font-size: 16px;
+   cursor: pointer;
+   text-decoration: none;
+   display: inline-block;
+   margin-top: 20px;
+}
+
+.btn:hover {
+   background-color: #005499;
+}

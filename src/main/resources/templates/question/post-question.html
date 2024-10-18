@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColloborIQ - Сұрақ қою</title>
+    <link rel="stylesheet" href="/css/questions.css">
+</head>
+<body>
+<header>
+    <h1>ColloborIQ</h1>
+    <nav>
+        <a href="questions.html" class="btn-back">Сұрақтарға оралу</a>
+        <a href="../registration/logout.html" class="btn-logout">Шығу</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Жаңа сұрақ енгізу</h2>
+
+    <form th:method="POST" th:action="@{/questions}" th:object="${question}">
+            <textarea id="question" name="question" rows="4"
+                      placeholder="Сұрағыңызды осы жерге енгізіңіз..."
+                      th:field="*{question}" required></textarea>
+        <button type="submit" class="btn">Сұрақты жіберу</button>
+    </form>
+
+
+</div>
+</body>
+</html>
