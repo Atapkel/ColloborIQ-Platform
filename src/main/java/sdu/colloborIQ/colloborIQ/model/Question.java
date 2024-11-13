@@ -2,6 +2,7 @@ package sdu.colloborIQ.colloborIQ.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,11 +14,12 @@ public class Question {
     private int id;
     @Column(name = "question")
     private String question;
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "question")
     private List<Comment> comments;
     public Question(){
     }
     public void addComment(Comment comment){
+        if (comments == null)comments = new ArrayList<>();
         comments.add(comment);
         comment.setQuestion(this);
     }

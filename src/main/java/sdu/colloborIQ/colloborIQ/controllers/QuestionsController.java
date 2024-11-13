@@ -37,10 +37,9 @@ public class QuestionsController {
 
     @PostMapping("/{id}")
     public String addCommentById(@PathVariable("id") int questionId,
-                                 @ModelAttribute("commentToAdd") Comment comment,
-                                 @ModelAttribute("question") Question question) {
-        commentsService.saveByQuestionId(question, comment);
-        return "redirect:/questions/" + question.getId();
+                                 @ModelAttribute("commentToAdd") Comment comment) {
+        commentsService.saveByQuestionId(questionId, comment);
+        return "redirect:/questions/" + questionId;
     }
 
     @GetMapping("/{id}")
@@ -52,6 +51,7 @@ public class QuestionsController {
         model.addAttribute("commentToAdd", new Comment());
         return "question/question-detail";
     }
+
 
     @GetMapping("/new")
     public String askQuestion(Model model) {

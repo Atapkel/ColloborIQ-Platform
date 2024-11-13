@@ -7,36 +7,52 @@
     <link rel="stylesheet" href="/css/questions.css">
 </head>
 <body>
-    <header>
-        <h1>ColloborIQ</h1>
-        <nav>
-            <a href="/questions" class="btn-back">Сұрақтарға оралу</a>
-            <a href="../registration/logout.html" class="btn-logout">Шығу</a>
-        </nav>
-    </header>
+<header>
+    <h1>ColloborIQ</h1>
+    <nav>
+        <a href="/questions" class="btn-back">Сұрақтарға оралу</a>
+        <a href="../registration/logout.html" class="btn-logout">Шығу</a>
+    </nav>
+</header>
 
-    <div class="container">
-        <h2>Сұрақ мәліметтері</h2>
-        <div class="question">
-            <p class="question-text" th:text="${question.getQuestion()}">question</p>
-            <p class="question-author" >Пост авторы: student</p>
-        </div>
-
-        <div class="comments">
-            <h3>Пікірлер</h3>
-            <div class="comment" th:each="comment : ${comments}">
-                <p th:text="${comment.getComment()}">comment</p>
-                <p class="comment-author">Пікір авторы: Teacher</p>
-            </div>
-
-
-            <form class="comment-form" th:method="POST" th:action="@{/questions/{id}(id=${question.getId()})}"
-            th:object="${commentToAdd}">
-                <textarea name="comment" rows="2" placeholder="Пікіріңізді жазыңыз..." required
-                th:field="*{comment}"></textarea>
-                <button type="submit" class="btn-comment">Пікірді қалдыру</button>
-            </form>
-        </div>
+<div class="container">
+    <h2>Сұрақ мәліметтері</h2>
+    <div class="question">
+        <p class="question-text" th:text="${question.getQuestion()}">question</p>
+        <p class="question-author">Пост авторы: student</p>
     </div>
+
+    <div class="comments">
+        <h3>Пікірлер</h3>
+        <div class="comment" th:each="comment : ${comments}">
+            <p th:text="${comment.getComment()}">comment</p>
+            <p class="comment-author">Пікір авторы: Teacher</p>
+
+            <p>Upvotes: <span th:text="${comment.getUpVote()}">0</span> |
+                Downvotes: <span th:text="${comment.getDownVote()}">0</span></p>
+
+
+            <form th:action="@{/comments/{id}/upvote(id=${comment.getId()})}" method="post" style="display:inline;">
+                <button type="submit" class="btn-upvote">UpVote</button>
+            </form>
+
+
+            <form th:action="@{/comments/{id}/downvote(id=${comment.getId()})}" method="post" style="display:inline;">
+                <button type="submit" class="btn-downvote">DownVote</button>
+            </form>
+
+
+        </div>
+
+
+
+        <form class="comment-form" th:method="POST" th:action="@{/questions/{id}(id=${question.getId()})}"
+              th:object="${commentToAdd}">
+                <textarea name="comment" rows="2" placeholder="Пікіріңізді жазыңыз..." required
+                          th:field="*{comment}"></textarea>
+            <button type="submit" class="btn-comment">Пікірді қалдыру</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
