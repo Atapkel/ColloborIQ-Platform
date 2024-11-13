@@ -7,26 +7,30 @@
     <link rel="stylesheet" href="/css/questions.css">
 </head>
 <body>
-    <header>
-        <h1>ColloborIQ</h1>
-        <nav>
-            <a href="/questions/new" class="btn-post">Сұрақ қою</a>
-            <a href="../registration/logout.html" class="btn-logout">Шығу</a>
-        </nav>
-    </header>
+<header>
+    <h1>ColloborIQ</h1>
+    <nav>
+        <a href="/questions/new" class="btn-post">Сұрақ қою</a>
+        <a href="../registration/logout.html" class="btn-logout">Шығу</a>
+    </nav>
+</header>
 
-    <div class="container">
-        <h2>Сұрақтар</h2>
-        <div class="questions-section">
-            <div class="question" th:each="question : ${questions}">
-                <a th:href="@{/questions/{id}(id=${question.getId()})}" class="question-link">
-                    <p class="question-text" th:text="${question.getQuestion()}">question</p>
-                </a>
-                <p class="question-author">Пост авторы: sdudent</p>
-            </div>
+<div class="container">
+    <h2>Сұрақтар</h2>
 
+    <form th:action="@{/questions}" method="get" class="search-form">
+        <input type="text" name="keyword" placeholder="Сұрақты іздеу..." class="search-input">
+        <button type="submit" class="btn-search">Іздеу</button>
+    </form>
 
+    <div class="questions-section">
+        <div class="question" th:each="question : ${questions}">
+            <a th:href="@{/questions/{id}(id=${question.getId()})}" class="question-link">
+                <p class="question-text" th:text="${question.getQuestion()}">question</p>
+            </a>
+            <p class="question-author">Пост авторы: student</p>
         </div>
     </div>
+</div>
 </body>
 </html>

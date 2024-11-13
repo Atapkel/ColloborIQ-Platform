@@ -29,7 +29,7 @@
                 <p class="comment-author">Пікір авторы: Teacher</p>
             </div>
 
-            
+
             <form class="comment-form" th:method="POST" th:action="@{/questions/{id}(id=${question.getId()})}"
             th:object="${commentToAdd}">
                 <textarea name="comment" rows="2" placeholder="Пікіріңізді жазыңыз..." required

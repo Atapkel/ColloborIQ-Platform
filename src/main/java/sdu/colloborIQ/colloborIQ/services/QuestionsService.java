@@ -1,6 +1,5 @@
 package sdu.colloborIQ.colloborIQ.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sdu.colloborIQ.colloborIQ.model.Question;
 import sdu.colloborIQ.colloborIQ.repository.QuestionRepository;
@@ -28,4 +27,7 @@ public class QuestionsService {
     }
 
 
+    public List<Question> searchWithKeyWord(String keyword) {
+        return questionRepository.findByQuestionContainingIgnoreCase(keyword);
+    }
 }

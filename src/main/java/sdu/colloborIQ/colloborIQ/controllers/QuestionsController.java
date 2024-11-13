@@ -24,8 +24,14 @@ public class QuestionsController {
     }
 
     @GetMapping()
-    public String questions(Model model) {
-        model.addAttribute("questions", questionsService.findAll());
+    public String questions(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            Model model) {
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            model.addAttribute("questions",
+                    questionsService.searchWithKeyWord(keyword));
+        } else
+            model.addAttribute("questions", questionsService.findAll());
         return "question/questions";
     }
 
@@ -34,7 +40,7 @@ public class QuestionsController {
                                  @ModelAttribute("commentToAdd") Comment comment,
                                  @ModelAttribute("question") Question question) {
         commentsService.saveByQuestionId(question, comment);
-        return "redirect:/questions/"+question.getId();
+        return "redirect:/questions/" + question.getId();
     }
 
     @GetMapping("/{id}")
