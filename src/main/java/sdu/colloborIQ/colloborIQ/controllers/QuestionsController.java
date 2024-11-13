@@ -3,28 +3,29 @@ package sdu.colloborIQ.colloborIQ.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import sdu.colloborIQ.colloborIQ.dao.CommentDAO;
-import sdu.colloborIQ.colloborIQ.dao.QuestionDAO;
+import sdu.colloborIQ.colloborIQ.dto.QuestionDTO;
 import sdu.colloborIQ.colloborIQ.model.Comment;
 import sdu.colloborIQ.colloborIQ.model.Question;
+import sdu.colloborIQ.colloborIQ.repository.CommentsRepository;
+import sdu.colloborIQ.colloborIQ.services.CommentsService;
+import sdu.colloborIQ.colloborIQ.services.QuestionsService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/questions")
 public class QuestionsController {
-    private final QuestionDAO questionDAO;
-    private final CommentDAO commentDAO;
+    private final QuestionsService questionsService;
+    private final CommentsService commentsService;
 
-    public QuestionsController(QuestionDAO questionDAO, CommentDAO commentDAO) {
-        this.questionDAO = questionDAO;
-        this.commentDAO = commentDAO;
+    public QuestionsController(QuestionsService questionsService, CommentsService commentsService) {
+        this.questionsService = questionsService;
+        this.commentsService = commentsService;
     }
 
     @GetMapping()
     public String questions(Model model) {
-        model.addAttribute("questions", questionDAO.index());
+        model.addAttribute("questions", questionsService.findAll());
         return "question/questions";
     }
 
@@ -32,14 +33,14 @@ public class QuestionsController {
     public String addCommentById(@PathVariable("id") int questionId,
                                  @ModelAttribute("commentToAdd") Comment comment,
                                  @ModelAttribute("question") Question question) {
-        commentDAO.saveByQuestionId(questionId, comment);
+        commentsService.saveByQuestionId(question, comment);
         return "redirect:/questions/"+question.getId();
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        Question question = questionDAO.show(id);
-        List<Comment> comments = commentDAO.getCommentsByQuestionId(id);
+        Question question = questionsService.findById(id).orElse(null);
+        List<Comment> comments = commentsService.getCommentsByQuestionId(id);
         model.addAttribute("question", question);
         model.addAttribute("comments", comments);
         model.addAttribute("commentToAdd", new Comment());
@@ -48,13 +49,15 @@ public class QuestionsController {
 
     @GetMapping("/new")
     public String askQuestion(Model model) {
-        model.addAttribute("question", new Question());
+        model.addAttribute("questionDTO", new QuestionDTO());
         return "question/post-question";
     }
 
     @PostMapping()
-    public String postQuestion(@ModelAttribute("question") Question question) {
-        questionDAO.save(question);
+    public String postQuestion(@ModelAttribute("question") QuestionDTO questionDTO) {
+        Question questionToSave = new Question();
+        questionToSave.setQuestion(questionDTO.getQuestion());
+        questionsService.save(questionToSave);
         return "redirect:/questions";
     }
 

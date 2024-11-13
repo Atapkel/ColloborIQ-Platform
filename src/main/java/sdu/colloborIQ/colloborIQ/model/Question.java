@@ -1,12 +1,32 @@
 package sdu.colloborIQ.colloborIQ.model;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "questions")
 public class Question {
-    private String question;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    public Question(){}
-    public Question(String question, int id){
-        this.question = question;
-        this.id = id;
+    @Column(name = "question")
+    private String question;
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+    public Question(){
+    }
+    public void addComment(Comment comment){
+        comments.add(comment);
+        comment.setQuestion(this);
+    }
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public int getId() {
