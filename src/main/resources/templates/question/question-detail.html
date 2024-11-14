@@ -19,14 +19,17 @@
     <h2>Сұрақ мәліметтері</h2>
     <div class="question">
         <p class="question-text" th:text="${question.getQuestion()}">question</p>
-        <p class="question-author">Пост авторы: student</p>
+        <p class="author" th:text="${question.getAuthor()}">author</p>
+        <p class="question-text" th:text="${#dates.format(question.time, 'dd-MM-yyyy HH:mm')}">time</p>
+
     </div>
 
     <div class="comments">
         <h3>Пікірлер</h3>
         <div class="comment" th:each="comment : ${comments}">
             <p th:text="${comment.getComment()}">comment</p>
-            <p class="comment-author">Пікір авторы: Teacher</p>
+            <p class="comment-author" th:text="${comment.getAuthor()}">Пікір авторы:</p>
+            <p class="question-text" th:text="${#dates.format(comment.time, 'dd-MM-yyyy HH:mm')}">time</p>
 
             <p>Upvotes: <span th:text="${comment.getUpVote()}">0</span> |
                 Downvotes: <span th:text="${comment.getDownVote()}">0</span></p>
@@ -50,6 +53,10 @@
               th:object="${commentToAdd}">
                 <textarea name="comment" rows="2" placeholder="Пікіріңізді жазыңыз..." required
                           th:field="*{comment}"></textarea>
+
+            <textarea name="author" rows="1" placeholder="Есіміңізді жазыңыз..." required
+                      th:field="*{author}"></textarea>
+
             <button type="submit" class="btn-comment">Пікірді қалдыру</button>
         </form>
     </div>

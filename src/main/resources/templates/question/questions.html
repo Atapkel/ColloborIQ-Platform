@@ -28,7 +28,8 @@
             <a th:href="@{/questions/{id}(id=${question.getId()})}" class="question-link">
                 <p class="question-text" th:text="${question.getQuestion()}">question</p>
             </a>
-            <p class="question-author">Пост авторы: student</p>
+            <p class="question-text" th:text="${question.getAuthor()}">author</p>
+            <p class="question-text" th:text="${#dates.format(question.time, 'dd-MM-yyyy HH:mm')}">time</p>
         </div>
     </div>
 </div>

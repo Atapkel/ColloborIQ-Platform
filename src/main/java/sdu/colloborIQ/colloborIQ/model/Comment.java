@@ -1,6 +1,9 @@
 package sdu.colloborIQ.colloborIQ.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
@@ -18,6 +21,12 @@ public class Comment implements Comparable<Comment>{
     private int upVote;
     @Column(name = "downvote")
     private int downVote;
+    @Column(name = "author")
+    private String author;
+    @Column(name = "time")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+    private Date time;
     public Comment(){}
 
     public int getUpVote() {
@@ -55,6 +64,22 @@ public class Comment implements Comparable<Comment>{
 
     public String getComment() {
         return comment;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 
     public void setId(int id) {

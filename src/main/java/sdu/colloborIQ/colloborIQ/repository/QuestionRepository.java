@@ -8,7 +8,6 @@ import sdu.colloborIQ.colloborIQ.model.Question;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
     List<Question> findByQuestionContainingIgnoreCase(String keyword);
 }

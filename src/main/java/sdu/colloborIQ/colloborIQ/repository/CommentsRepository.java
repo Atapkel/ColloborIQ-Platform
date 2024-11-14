@@ -11,7 +11,6 @@ import sdu.colloborIQ.colloborIQ.model.Comment;
 import java.util.List;
 
 @Repository
-@Transactional(readOnly = true)
 public interface CommentsRepository extends JpaRepository<Comment, Integer> {
     @Modifying
     @Transactional

@@ -63,6 +63,7 @@ public class QuestionsController {
     public String postQuestion(@ModelAttribute("question") QuestionDTO questionDTO) {
         Question questionToSave = new Question();
         questionToSave.setQuestion(questionDTO.getQuestion());
+        questionToSave.setAuthor(questionDTO.getAuthor());
         questionsService.save(questionToSave);
         return "redirect:/questions";
     }

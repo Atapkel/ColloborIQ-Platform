@@ -5,34 +5,34 @@ import org.springframework.transaction.annotation.Transactional;
 import sdu.colloborIQ.colloborIQ.model.Comment;
 import sdu.colloborIQ.colloborIQ.model.Question;
 import sdu.colloborIQ.colloborIQ.repository.CommentsRepository;
+import sdu.colloborIQ.colloborIQ.repository.QuestionRepository;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CommentsService {
     private final CommentsRepository commentsRepository;
-    private final QuestionsService questionsService;
+    private final QuestionRepository questionRepository;
 
-    public CommentsService(CommentsRepository commentsRepository, QuestionsService questionsService) {
+    public CommentsService(CommentsRepository commentsRepository, QuestionRepository questionRepository) {
         this.commentsRepository = commentsRepository;
-        this.questionsService = questionsService;
+        this.questionRepository = questionRepository;
     }
 
     public Optional<Comment> findById(int id) {
         return commentsRepository.findById(id);
     }
 
+
     @Transactional
     public void saveByQuestionId(int questionId, Comment comment) {
-        Question questionToAddComment = questionsService.findById(questionId)
+        comment.setTime(new Date());
+        Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new RuntimeException("Question not found"));
-        questionToAddComment.addComment(comment);
-
+        question.addComment(comment);
         commentsRepository.save(comment);
     }
+
 
     public void upVote(int id) {
         commentsRepository.incrementUpVotes(id);

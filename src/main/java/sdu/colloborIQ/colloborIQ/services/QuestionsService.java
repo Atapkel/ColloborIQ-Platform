@@ -1,9 +1,11 @@
 package sdu.colloborIQ.colloborIQ.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sdu.colloborIQ.colloborIQ.model.Question;
 import sdu.colloborIQ.colloborIQ.repository.QuestionRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +23,9 @@ public class QuestionsService {
     public Optional<Question> findById(int id){
         return questionRepository.findById(id);
     }
+   @Transactional
     public void save(Question question){
-        System.out.println("I am save method");
+        question.setTime(new Date());
         questionRepository.save(question);
     }
 
