@@ -22,5 +22,7 @@ public interface CommentsRepository extends JpaRepository<Comment, Integer> {
     @Query("UPDATE Comment c SET c.downVote = c.downVote + 1 WHERE c.id = :commentId")
     void incrementDownVotes(@Param("commentId") int commentId);
 
+    List<Comment> findByQuestionId(int questionId);
+
     List<Comment> findCommentsByQuestionId(int id);
 }

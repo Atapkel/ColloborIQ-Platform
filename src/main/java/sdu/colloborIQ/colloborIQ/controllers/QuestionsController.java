@@ -3,6 +3,7 @@ package sdu.colloborIQ.colloborIQ.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sdu.colloborIQ.colloborIQ.dto.CommentDTO;
 import sdu.colloborIQ.colloborIQ.dto.QuestionDTO;
 import sdu.colloborIQ.colloborIQ.model.Comment;
 import sdu.colloborIQ.colloborIQ.model.Question;
@@ -37,8 +38,8 @@ public class QuestionsController {
 
     @PostMapping("/{id}")
     public String addCommentById(@PathVariable("id") int questionId,
-                                 @ModelAttribute("commentToAdd") Comment comment) {
-        commentsService.saveByQuestionId(questionId, comment);
+                                 @ModelAttribute("commentToAdd") CommentDTO commentDTO) {
+        commentsService.saveByQuestionId(questionId, commentDTO);
         return "redirect:/questions/" + questionId;
     }
 
@@ -48,7 +49,7 @@ public class QuestionsController {
         List<Comment> comments = commentsService.getCommentsByQuestionId(id);
         model.addAttribute("question", question);
         model.addAttribute("comments", comments);
-        model.addAttribute("commentToAdd", new Comment());
+        model.addAttribute("commentToAdd", new CommentDTO());
         return "question/question-detail";
     }
 

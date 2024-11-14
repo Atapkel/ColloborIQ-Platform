@@ -2,6 +2,7 @@ package sdu.colloborIQ.colloborIQ.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sdu.colloborIQ.colloborIQ.dto.CommentDTO;
 import sdu.colloborIQ.colloborIQ.model.Comment;
 import sdu.colloborIQ.colloborIQ.model.Question;
 import sdu.colloborIQ.colloborIQ.repository.CommentsRepository;
@@ -25,13 +26,20 @@ public class CommentsService {
 
 
     @Transactional
-    public void saveByQuestionId(int questionId, Comment comment) {
+    public void saveByQuestionId(int questionId, CommentDTO commentDTO) {
+        Comment comment = new Comment();
+        comment.setComment(commentDTO.getComment());
+        comment.setAuthor(commentDTO.getAuthor());
+        comment.setDownVote(0);
+        comment.setDownVote(0);
         comment.setTime(new Date());
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new RuntimeException("Question not found"));
+
         question.addComment(comment);
-        commentsRepository.save(comment);
+        questionRepository.save(question);
     }
+
 
 
     public void upVote(int id) {

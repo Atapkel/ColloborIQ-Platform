@@ -16,8 +16,10 @@ public class Question {
     private int id;
     @Column(name = "question")
     private String question;
-    @OneToMany(mappedBy = "question", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+
     @Column(name = "author")
     private String author;
     @Column(name = "time")
@@ -32,9 +34,12 @@ public class Question {
         return comments;
     }
     public void addComment(Comment comment){
-        comment.setQuestion(this);
-        this.comments.add(comment);
+        comment.setQuestion(this);  // Set the question for the comment
+        if (!this.comments.contains(comment)) {
+            this.comments.add(comment);  // Only add if not already present
+        }
     }
+
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }

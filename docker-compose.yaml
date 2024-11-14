@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: kulsary2022
+      POSTGRES_DB: colloborIQ
+    ports:
+      - "5432:5432"
+  #    volumes:
+  #      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+    container_name: colloborIQ_app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/colloborIQ
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: kulsary2022
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres
+
+#volumes:
+#  postgres_data:
