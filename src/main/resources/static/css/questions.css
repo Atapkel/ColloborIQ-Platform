@@ -1,179 +1,211 @@
 /* General Layout */
 body {
-   font-family: Arial, sans-serif;
-   background-color: #fafafa;
+   font-family: 'Poppins', sans-serif;
+   background-color: #f9fafe;
    color: #333;
    margin: 0;
    padding: 0;
    line-height: 1.6;
+   font-size: 16px;
 }
 
-
+/* Header Styling */
 header {
-   background: linear-gradient(135deg, #ff7e5f, #feb47b);
+   background: linear-gradient(135deg, #4f8dfd, #1f5dc5);
    color: white;
-   padding: 10px;
+   padding: 20px 10px;
    text-align: center;
    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+   position: sticky;
+   top: 0;
+   z-index: 1000;
 }
 
 h1 {
-   font-size: 24px;
+   font-size: 26px;
    margin: 0;
-}
-
-nav a {
-   color: #fff;
-   margin: 0 5px;
-   text-decoration: none;
-   padding: 6px 12px;
-   border-radius: 6px;
-   transition: background 0.3s;
    font-weight: bold;
 }
 
+nav {
+   margin-top: 10px;
+}
+
+nav a {
+   color: white;
+   margin: 0 8px;
+   text-decoration: none;
+   padding: 8px 16px;
+   border-radius: 6px;
+   background-color: rgba(255, 255, 255, 0.2);
+   transition: background-color 0.3s ease, transform 0.2s ease;
+   font-weight: 500;
+}
+
 nav a:hover {
-   background: rgba(255, 255, 255, 0.2);
+   background-color: rgba(255, 255, 255, 0.4);
+   transform: scale(1.05);
 }
 
 /* Container Styling */
 .container {
-   max-width: 600px;
-   margin: 20px auto;
+   max-width: 700px;
+   margin: 30px auto;
    padding: 20px;
-   background-color: #fff;
-   border-radius: 12px;
-   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+   background-color: #ffffff;
+   border-radius: 16px;
+   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+   transition: transform 0.2s ease;
 }
 
-/* Form Titles */
+.container:hover {
+   transform: translateY(-5px);
+}
+
 h2 {
-   font-size: 22px;
+   font-size: 24px;
    font-weight: 600;
-   color: #ff7e5f;
+   color: #1f5dc5;
    margin-bottom: 15px;
 }
 
-/* Form Elements */
+/* Form Styling */
 form textarea, input[type="text"] {
    width: 100%;
-   padding: 12px;
+   padding: 12px 16px;
    font-size: 14px;
-   margin-bottom: 10px;
-   border: 1px solid #ddd;
+   margin-bottom: 15px;
+   border: 1px solid #dce4ef;
    border-radius: 8px;
-   background-color: #fafafa;
-   transition: border 0.3s;
+   background-color: #f4f7fc;
+   transition: border-color 0.3s ease;
 }
 
 form textarea:focus, input[type="text"]:focus {
-   border-color: #ff7e5f;
+   border-color: #4f8dfd;
    outline: none;
+   background-color: #fff;
 }
 
-/* Button Styles */
+textarea {
+   resize: none;
+}
+
+/* Buttons */
 .btn, .btn-upvote, .btn-downvote, .btn-comment, .btn-search, .btn-back, .btn-logout, .btn-post {
-   font-size: 14px;
-   padding: 10px 16px;
+   font-size: 16px;
+   padding: 10px 20px;
    border: none;
    border-radius: 8px;
    cursor: pointer;
-   transition: all 0.3s;
+   transition: background-color 0.3s ease, transform 0.2s ease;
    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
    font-weight: bold;
+   display: inline-block;
+   text-align: center;
 }
 
 .btn {
-   background: linear-gradient(135deg, #ff7e5f, #feb47b);
+   background: linear-gradient(135deg, #4f8dfd, #1f5dc5);
    color: white;
 }
 
 .btn:hover {
-   opacity: 0.9;
-   transform: translateY(-2px);
-}
-
-/* Upvote and Downvote Buttons with Arrows */
-.btn-upvote, .btn-downvote {
-   font-size: 12px;
-   padding: 8px 12px;
-   display: inline-flex;
-   align-items: center;
-   color: white;
+   background: linear-gradient(135deg, #1f5dc5, #4f8dfd);
+   transform: scale(1.05);
 }
 
 .btn-upvote {
-   background-color: #28a745;
+   background-color: #34c759;
+   color: white;
 }
 
 .btn-downvote {
-   background-color: #dc3545;
+   background-color: #ff3b30;
+   color: white;
 }
 
-.btn-upvote::before {
-   content: "▲ ";
-   font-size: 10px;
+.btn-upvote:hover, .btn-downvote:hover {
+   transform: scale(1.1);
 }
 
-.btn-downvote::before {
-   content: "▼ ";
-   font-size: 10px;
-}
-
-/* Question and Comment Sections */
+/* Question and Comment Cards */
 .question, .comment {
-   padding: 15px;
-   margin: 12px 0;
-   background-color: #fff;
-   border-radius: 10px;
-   border: 1px solid #e0e6ee;
-   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+   padding: 20px;
+   margin: 15px 0;
+   background-color: #f4f7fc;
+   border-radius: 12px;
+   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+   transition: transform 0.2s ease;
 }
 
-.comment p {
+.question:hover, .comment:hover {
+   transform: translateY(-5px);
+}
+
+.comment p, .question p {
    font-size: 14px;
    margin: 8px 0;
+   color: #4a4a4a;
 }
 
-/* Smaller Info Layout */
-.comment-info {
-   display: flex;
-   justify-content: space-between;
-   font-size: 10px;
+.comment-info, .question-info {
+   font-size: 12px;
    color: #888;
    margin-top: 5px;
 }
 
-.question-info {
-   font-size: 12px;
-   color: #888;
+/* Search Bar */
+.search-form {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 20px;
+}
+
+.search-input {
+   flex: 1;
+   margin-right: 10px;
+   border: 1px solid #dce4ef;
+   padding: 10px 15px;
+   border-radius: 8px;
+   font-size: 14px;
+}
+
+.search-input:focus {
+   border-color: #4f8dfd;
+   outline: none;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
    header {
-      padding: 8px;
+      padding: 15px 8px;
+   }
+
+   h1 {
+      font-size: 20px;
    }
 
    .container {
-      width: 95%;
+      width: 90%;
       padding: 15px;
    }
 
    .btn, .btn-upvote, .btn-downvote, .btn-comment, .btn-back, .btn-logout, .btn-post {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
    }
 
    h2 {
-      font-size: 18px;
+      font-size: 20px;
    }
 
    textarea, input[type="text"] {
-      font-size: 12px;
+      font-size: 14px;
    }
 
    .question, .comment {
-      padding: 12px;
+      padding: 15px;
    }
 }
