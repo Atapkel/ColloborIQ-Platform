@@ -11,7 +11,7 @@
     <h1>ColloborIQ</h1>
     <nav>
         <a href="/questions" class="btn-back" aria-label="Back to Questions">Сұрақтарға оралу</a>
-        <a href="../registration/logout.html" class="btn-logout" aria-label="Logout">Шығу</a>
+        <a th:href="@{/logout}" class="btn-logout" aria-label="Logout">Шығу</a>
     </nav>
 </header>
 
@@ -53,7 +53,7 @@
 <footer>
     <nav>
         <a href="/questions" class="btn-footer">Сұрақтар</a>
-        <a href="../registration/logout.html" class="btn-footer">Шығу</a>
+        <a href="../auth/logout.html" class="btn-footer">Шығу</a>
     </nav>
 </footer>
 </body>

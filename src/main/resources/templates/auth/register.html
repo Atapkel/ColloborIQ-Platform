@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColloborIQ - Тіркелу</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #eef2f3, #8ea1b5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #2d3748;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px 30px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #2c5282;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            border-color: #4299e1;
+            outline: none;
+            box-shadow: 0 0 5px rgba(66, 153, 225, 0.5);
+        }
+
+        .input-group div[style*="color: red"] {
+            font-size: 12px;
+            margin-top: 5px;
+            color: #e53e3e;
+        }
+
+        button.btn {
+            width: 100%;
+            padding: 10px 15px;
+            background-color: #2b6cb0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button.btn:hover {
+            background-color: #2c5282;
+        }
+
+        p.switch-form {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        p.switch-form a {
+            color: #4299e1;
+            text-decoration: none;
+        }
+
+        p.switch-form a:hover {
+            text-decoration: underline;
+        }
+
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>ColloborIQ</h1>
+            <form th:method="POST" th:action="@{/register}" th:object="${sdudent}">
+                <h2>Тіркелу</h2>
+                <div class="input-group">
+                    <label for="username">Қолданушы аты</label>
+                    <input type="text" id="username" name="username" th:field="*{username}" required>
+                    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
+
+                </div>
+
+                <div class="input-group">
+                    <label for="name">Есіміңіз</label>
+                    <input type="text" id="name" name="name" th:field="*{name}"  required>
+                    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</div>
+
+                </div>
+
+                <div class="input-group">
+                    <label for="surname">Тегіңіз</label>
+                    <input type="text" id="surname" name="surname" th:field="*{surname}"  required>
+                    <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">surname error</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="age">Жасыңыз</label>
+                    <input type="number" id="age" name="age" th:field="*{age}"  required>
+                    <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age error</div>
+                </div>
+
+
+                <div class="input-group">
+                    <label for="password">Құпия сөз</label>
+                    <input type="password" id="password" name="password" th:field="*{password}"  required>
+                    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+                </div>
+
+                <button type="submit" class="btn">Тіркелу</button>
+                <p class="switch-form">Тіркеліп қойдыңызба? <a href="login.html">Кіру</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
