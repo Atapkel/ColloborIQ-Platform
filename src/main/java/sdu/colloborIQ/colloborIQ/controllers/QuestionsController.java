@@ -1,5 +1,9 @@
 package sdu.colloborIQ.colloborIQ.controllers;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +11,7 @@ import sdu.colloborIQ.colloborIQ.dto.CommentDTO;
 import sdu.colloborIQ.colloborIQ.dto.QuestionDTO;
 import sdu.colloborIQ.colloborIQ.model.Comment;
 import sdu.colloborIQ.colloborIQ.model.Question;
+import sdu.colloborIQ.colloborIQ.model.Sdudent;
 import sdu.colloborIQ.colloborIQ.repository.CommentsRepository;
 import sdu.colloborIQ.colloborIQ.services.CommentsService;
 import sdu.colloborIQ.colloborIQ.services.QuestionsService;
@@ -28,6 +33,9 @@ public class QuestionsController {
     public String questions(
             @RequestParam(value = "keyword", required = false) String keyword,
             Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("username", userDetails.getUsername());
         if (keyword != null && !keyword.trim().isEmpty()) {
             model.addAttribute("questions",
                     questionsService.searchWithKeyWord(keyword));
@@ -39,6 +47,9 @@ public class QuestionsController {
     @PostMapping("/{id}")
     public String addCommentById(@PathVariable("id") int questionId,
                                  @ModelAttribute("commentToAdd") CommentDTO commentDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        commentDTO.setAuthor(userDetails.getUsername());
         commentsService.saveByQuestionId(questionId, commentDTO);
         return "redirect:/questions/" + questionId;
     }
@@ -62,6 +73,9 @@ public class QuestionsController {
 
     @PostMapping()
     public String postQuestion(@ModelAttribute("question") QuestionDTO questionDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        questionDTO.setAuthor(userDetails.getUsername());
         Question questionToSave = new Question();
         questionToSave.setQuestion(questionDTO.getQuestion());
         questionToSave.setAuthor(questionDTO.getAuthor());

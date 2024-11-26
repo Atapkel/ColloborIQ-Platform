@@ -44,7 +44,7 @@
         <form class="comment-form" th:method="POST" th:action="@{/questions/{id}(id=${question.getId()})}"
               th:object="${commentToAdd}">
             <textarea name="comment" rows="2" placeholder="Пікіріңізді жазыңыз..." required th:field="*{comment}"></textarea>
-            <textarea name="author" rows="1" placeholder="Есіміңізді жазыңыз..." required th:field="*{author}"></textarea>
+<!--            <textarea name="author" rows="1" placeholder="Есіміңізді жазыңыз..." required th:field="*{author}"></textarea>-->
             <button type="submit" class="btn-comment">Пікірді қалдыру</button>
         </form>
     </div>
