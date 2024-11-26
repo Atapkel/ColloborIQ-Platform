@@ -17,7 +17,6 @@ public class AuthController {
         this.sdudentService = sdudentService;
         this.sdudentValidator = sdudentValidator;
     }
-
     @GetMapping("/login")
     public String loginPage(){
         return "auth/login";
